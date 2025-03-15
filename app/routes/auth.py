@@ -7,12 +7,14 @@ from app.crud import create_user, authenticate_user
 
 router = APIRouter()
 
+
 @router.post("/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     if authenticate_user(db, user.email, user.password):
         raise HTTPException(status_code=400, detail="Email already registered")
     create_user(db, user.email, user.password)
     return {"token": generate_token(user.email)}
+
 
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):

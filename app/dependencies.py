@@ -4,6 +4,7 @@ from app.database import get_db
 from app.auth import get_current_user
 from app.models import User
 
+
 def get_current_user_db(token: str, db: Session = Depends(get_db)):
     """Dependency to get the current user based on token authentication"""
     user_email = get_current_user(token)
